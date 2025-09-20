@@ -160,7 +160,7 @@ export const useInvoiceForm = () => {
   const steps = [
     { step: 1, title: "Data Dasar", description: "Header, klien, freelancer, metode pembayaran." },
     { step: 2, title: "Item Layanan", description: "Tambahkan layanan atau produk yang Anda faktur." },
-    { step: 3, title: "Pratinjau & Unduh", description: "Tinjau dan unduh invoice profesional Anda." },
+    { step: 3, title: "Tambahan & Unduh PDF", description: "Tambahkan catatan, lalu unduh PDF." },
   ];
 
   const onSubmit = handleSubmit(async (_) => {
@@ -227,7 +227,7 @@ export const useInvoiceForm = () => {
       }
     }
 
-    if (valid) currentStep.value = Math.min(currentStep.value + 1, 4);
+    if (valid) currentStep.value = Math.min(currentStep.value + 1, 3);
   };
 
   const prevStep = () => {
