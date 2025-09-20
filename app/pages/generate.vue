@@ -69,6 +69,16 @@
             <UiButton v-else-if="currentStep === 2" type="submit" variant="default" class="w-32">
               Submit
             </UiButton>
+
+            <UiButton
+              v-else-if="currentStep === 3"
+              type="button"
+              variant="default"
+              class="w-40"
+              @click="downloadPdf()"
+            >
+              Download PDF
+            </UiButton>
           </div>
         </fieldset>
       </form>
@@ -103,6 +113,17 @@
     addServiceItem,
     removeServiceItem,
   } = useInvoiceForm();
+
+  const { download } = useInvoicePdf();
+  const downloadPdf = async () => {
+    await download({
+      values,
+      lineItems: lineItems.value,
+      subtotal: subtotal.value,
+      total: total.value,
+      fileName: `${values.invoiceNumber || "invoice"}.pdf`,
+    } as any);
+  };
 
   console.log({ values });
 </script>
