@@ -227,7 +227,7 @@ export const useInvoiceForm = () => {
       }
     }
 
-    if (valid) currentStep.value = Math.min(currentStep.value + 1, 3);
+    if (valid) currentStep.value = Math.min(currentStep.value + 1, 4);
   };
 
   const prevStep = () => {

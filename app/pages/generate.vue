@@ -44,6 +44,11 @@
             />
           </template>
 
+          <!-- Step 3: Tambahan -->
+          <template v-else-if="currentStep === 3">
+            <InvoiceExtrasForm />
+          </template>
+
           <!-- Navigation Buttons -->
           <div class="flex justify-end gap-3 pt-2">
             <UiButton
@@ -57,17 +62,13 @@
             </UiButton>
 
             <UiButton
-              v-if="currentStep === 1"
+              v-if="currentStep === 1 || currentStep === 2"
               type="button"
               variant="default"
               class="w-32"
               @click="nextStep"
             >
               Selanjutnya
-            </UiButton>
-
-            <UiButton v-else-if="currentStep === 2" type="submit" variant="default" class="w-32">
-              Submit
             </UiButton>
 
             <UiButton
@@ -98,6 +99,8 @@
 
 <script lang="ts" setup>
   import { currencies } from "~/utils/currencies";
+
+  const InvoiceExtrasForm = resolveComponent("InvoiceExtrasForm");
 
   const {
     currentStep,
