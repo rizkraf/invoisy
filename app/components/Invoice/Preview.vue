@@ -156,7 +156,7 @@
         <div
           v-for="(it, idx) in lineItems"
           :key="idx"
-          class="grid grid-cols-12 items-start gap-2 py-3"
+          class="line-row grid grid-cols-12 items-start gap-2 py-3"
         >
           <div class="col-span-6">
             <div class="text-sm" :class="[it.description ? '' : 'text-zinc-400 italic']">
@@ -174,7 +174,7 @@
       <div v-else class="py-6 text-sm text-zinc-500">Belum ada item layanan.</div>
 
       <!-- Totals -->
-      <div class="mt-6 grid grid-cols-12 gap-2">
+      <div class="no-break mt-6 grid grid-cols-12 gap-2">
         <div class="col-span-6"></div>
         <div class="col-span-6 space-y-2">
           <div class="flex items-center justify-between text-sm">
@@ -194,7 +194,7 @@
       </div>
 
       <!-- Notes -->
-      <div class="mt-10 space-y-4 text-sm text-zinc-700">
+      <div class="no-break mt-10 space-y-4 text-sm text-zinc-700">
         <p v-if="values.paymentTerms">{{ values.paymentTerms }}</p>
         <p v-if="values.notes">{{ values.notes }}</p>
         <p v-if="values.thankYou">{{ values.thankYou }}</p>
@@ -331,7 +331,16 @@
       margin: 0;
       box-shadow: none;
       border: none;
-      page-break-after: always;
+    }
+
+    /* Avoid breaking important blocks across pages */
+    .line-row {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .no-break {
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
   }
 </style>

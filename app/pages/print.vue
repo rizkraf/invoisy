@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  // Disable default layout (no site header/footer) for clean PDF output
+  definePageMeta({ layout: false });
   const route = useRoute();
 
   type Payload = {
@@ -34,7 +36,7 @@
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-100 p-4 print:bg-white">
+  <div class="min-h-screen bg-zinc-100 p-4 print:bg-white print:p-0">
     <InvoicePreview :values="values" :line-items="lineItems" :subtotal="subtotal" :total="total" />
   </div>
   <ClientOnly>
@@ -45,6 +47,19 @@
 </template>
 
 <style>
+  /* Lock page size to A4 and remove margins for print */
+  @media print {
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    html,
+    body {
+      height: 297mm;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
   /* Ensure body background white when printing */
   @media print {
     html,
