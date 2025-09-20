@@ -44,15 +44,4 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  nitro: {
-    // Target Vercel Node serverless runtime (not Edge)
-    preset: 'vercel',
-    externals: {
-      // Keep heavy native/binary deps external in the serverless function
-      external: ['@sparticuz/chromium', 'puppeteer-core'],
-    },
-    // Prevent bundler from tree-shaking chromium package assets
-    moduleSideEffects: ['@sparticuz/chromium'],
-  },
 });
