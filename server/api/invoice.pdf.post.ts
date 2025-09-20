@@ -78,8 +78,22 @@ export default defineEventHandler(async (event) => {
     if (!executablePath) {
       throw createError({ statusCode: 500, statusMessage: 'Chromium executable not found in serverless environment' })
     }
+    // Ensure flags suitable for lambda environment
+    const args = [
+      ...chromium.args,
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process',
+    ]
+    // Recommended env for codecs and font rendering
+    process.env.FONTCONFIG_PATH = process.env.FONTCONFIG_PATH || '/usr/share/defaults/fonts'
+    process.env.LD_LIBRARY_PATH = `${process.env.LD_LIBRARY_PATH || ''}:/usr/lib64:/usr/lib:/opt/lib`
+    process.env.CHROME_PATH = executablePath
+
     browser = await puppeteerCore.launch({
-      args: chromium.args,
+      args,
       defaultViewport: { width: 794, height: 1123 },
       executablePath,
       headless: chromium.headless,
