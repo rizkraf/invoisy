@@ -16,7 +16,7 @@
     </p>
 
     <div class="mt-8 grid w-full grid-cols-1 items-center gap-3 sm:flex sm:justify-center lg:mt-10">
-      <UiButton size="lg">
+      <UiButton size="lg" to="/generate">
         Buat Invoice Sekarang
         <Icon name="lucide:plus-circle" />
       </UiButton>
