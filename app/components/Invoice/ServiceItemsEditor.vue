@@ -19,16 +19,31 @@
           >Hapus</UiButton
         >
       </div>
+
       <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <UiVeeInput :name="`serviceItems[${i}].title`" label="Judul" />
-        <UiVeeInput :name="`serviceItems[${i}].description`" label="Deskripsi" />
-        <UiVeeInput :name="`serviceItems[${i}].quantity`" label="Kuantitas" />
+        <UiVeeInput :name="`serviceItems[${i}].description`" label="Deskripsi Pekerjaan" />
+        <UiVeeSelect :name="`serviceItems[${i}].unit`" label="Satuan">
+          <option value="">Pilih Satuan</option>
+          <option v-for="u in units" :key="u" :value="u">{{ u }}</option>
+        </UiVeeSelect>
+
         <UiVeeCurrencyInput
-          :name="`serviceItems[${i}].price`"
-          label="Harga"
+          :name="`serviceItems[${i}].rate`"
+          label="Rate"
           :options="currencyOptions"
         />
-        <UiVeeInput :name="`serviceItems[${i}].tax`" label="Pajak (%)" />
+        <UiVeeInput
+          :name="`serviceItems[${i}].quantity`"
+          label="Jumlah (Jam/Qty)"
+          type="number"
+          min="1"
+          step="1"
+          inputmode="numeric"
+        />
+      </div>
+
+      <div class="text-muted-foreground text-sm">
+        Amount: <span class="font-medium">{{ formatAmount(item) }}</span>
       </div>
     </div>
   </div>
@@ -36,11 +51,10 @@
 
 <script lang="ts" setup>
   interface ServiceItem {
-    title: string;
     description: string;
-    price: number;
-    quantity: string;
-    tax?: string;
+    rate: number;
+    quantity: number;
+    unit?: string;
   }
 
   const props = defineProps<{ serviceItems: ServiceItem[]; currency?: string }>();
@@ -53,4 +67,19 @@
     const locale = currencyToLocale[cur] || "en-US";
     return { currency: cur, locale };
   });
+
+  const formatter = computed(
+    () =>
+      new Intl.NumberFormat(currencyOptions.value.locale, {
+        style: "currency",
+        currency: currencyOptions.value.currency,
+      })
+  );
+
+  const formatAmount = (item: ServiceItem) => {
+    const amount = (Number(item.rate) || 0) * (Number(item.quantity) || 0);
+    return formatter.value.format(amount);
+  };
+
+  const units = ["Hours", "Qty", "Project"];
 </script>
