@@ -2,6 +2,7 @@
   // Disable default layout (no site header/footer) for clean PDF output
   definePageMeta({ layout: false });
   const route = useRoute();
+  const router = useRouter();
 
   type Payload = {
     values: any;
@@ -33,6 +34,25 @@
   const lineItems = computed(() => payload.value?.lineItems ?? []);
   const subtotal = computed(() => payload.value?.subtotal ?? 0);
   const total = computed(() => payload.value?.total ?? 0);
+
+  // Set document title from query (?title=...) for nicer default PDF filename
+  onMounted(() => {
+    const title = (route.query.title as string | undefined) || "invoice.pdf";
+    try {
+      document.title = decodeURIComponent(title);
+    } catch {
+      document.title = title;
+    }
+
+    // Defer print until next frame to ensure layout is ready
+    requestAnimationFrame(() => {
+      window.print();
+      // Optional: try closing tab after print (may be blocked by browsers)
+      setTimeout(() => {
+        window.close();
+      }, 300);
+    });
+  });
 </script>
 
 <template>
