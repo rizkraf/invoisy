@@ -24,60 +24,79 @@
         </UiStepperItem>
       </UiStepper>
     </div>
-    <form @submit.prevent="onSubmit">
-      <fieldset :disabled="isSubmitting" class="space-y-5">
-        <!-- Step 1: Data Dasar -->
-        <template v-if="currentStep === 1">
-          <InvoiceBasicDataForm :currencies="currencies" />
-        </template>
 
-        <!-- Step 2: Item Layanan -->
-        <template v-else-if="currentStep === 2">
-          <InvoiceServiceItemsEditor
-            :service-items="values.serviceItems"
-            :currency="values.currency"
-            @add="addServiceItem"
-            @remove="removeServiceItem"
-          />
-        </template>
+    <!-- Two-column layout: form + live preview -->
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <form @submit.prevent="onSubmit">
+        <fieldset :disabled="isSubmitting" class="space-y-5">
+          <!-- Step 1: Data Dasar -->
+          <template v-if="currentStep === 1">
+            <InvoiceBasicDataForm :currencies="currencies" />
+          </template>
 
-        <!-- Navigation Buttons -->
-        <div class="flex justify-end gap-3 pt-2">
-          <UiButton
-            type="button"
-            variant="outline"
-            class="w-32"
-            :disabled="currentStep === 1"
-            @click="prevStep"
-          >
-            Sebelumnya
-          </UiButton>
+          <!-- Step 2: Item Layanan -->
+          <template v-else-if="currentStep === 2">
+            <InvoiceServiceItemsEditor
+              :service-items="values.serviceItems"
+              :currency="values.currency"
+              @add="addServiceItem"
+              @remove="removeServiceItem"
+            />
+          </template>
 
-          <UiButton
-            v-if="currentStep === 1"
-            type="button"
-            variant="default"
-            class="w-32"
-            @click="nextStep"
-          >
-            Selanjutnya
-          </UiButton>
+          <!-- Navigation Buttons -->
+          <div class="flex justify-end gap-3 pt-2">
+            <UiButton
+              type="button"
+              variant="outline"
+              class="w-32"
+              :disabled="currentStep === 1"
+              @click="prevStep"
+            >
+              Sebelumnya
+            </UiButton>
 
-          <UiButton v-else-if="currentStep === 2" type="submit" variant="default" class="w-32">
-            Submit
-          </UiButton>
-        </div>
-      </fieldset>
-    </form>
+            <UiButton
+              v-if="currentStep === 1"
+              type="button"
+              variant="default"
+              class="w-32"
+              @click="nextStep"
+            >
+              Selanjutnya
+            </UiButton>
+
+            <UiButton v-else-if="currentStep === 2" type="submit" variant="default" class="w-32">
+              Submit
+            </UiButton>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- Preview column -->
+      <div class="lg:sticky lg:top-20">
+        <InvoicePreview
+          :values="values"
+          :line-items="lineItems"
+          :subtotal="subtotal"
+          :total="total"
+        />
+      </div>
+    </div>
   </UiContainer>
 </template>
 
 <script lang="ts" setup>
+  import { currencies } from "~/utils/currencies";
+
   const {
     currentStep,
     steps,
     values,
     isSubmitting,
+    lineItems,
+    subtotal,
+    total,
     onSubmit,
     nextStep,
     prevStep,

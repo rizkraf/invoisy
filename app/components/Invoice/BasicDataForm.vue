@@ -3,29 +3,46 @@
     <div class="space-y-4">
       <UiDivider label="Header" />
       <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <UiVeeInput label="Nama/Brand" name="brandName" />
-        <UiVeeInput label="Nomor Invoice" name="invoiceNumber" />
+        <UiVeeInput
+          label="Nama/Brand (Opsional)"
+          name="brandName"
+          placeholder="Nama usaha atau brand"
+        />
+        <UiVeeInput label="Nomor Invoice" name="invoiceNumber" placeholder="Contoh: #2025-0920" />
       </div>
     </div>
 
     <div class="space-y-4">
       <UiDivider label="Billed To (Klien)" />
       <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <UiVeeInput label="Nama Klien/Perusahaan" name="clientName" />
-        <UiVeeInput label="Perusahaan (opsional)" name="clientCompany" />
-        <UiVeeInput label="Email Klien" name="clientEmail" />
-        <UiVeeInput label="Telepon Klien" name="clientPhone" />
-        <UiVeeInput class="md:col-span-2" label="Alamat Klien (opsional)" name="clientAddress" />
+        <UiVeeInput
+          label="Nama Klien/Perusahaan"
+          name="clientName"
+          placeholder="Nama klien atau perusahaan"
+        />
+        <UiVeeInput
+          label="Perusahaan (opsional)"
+          name="clientCompany"
+          placeholder="PT Contoh Teknologi"
+        />
+        <UiVeeInput label="Email Klien" name="clientEmail" placeholder="klien@contoh.com" />
+        <UiVeeInput label="Telepon Klien" name="clientPhone" placeholder="08xxxxxxxxxx" />
+        <UiVeeInput
+          class="md:col-span-2"
+          label="Alamat Klien (opsional)"
+          name="clientAddress"
+          placeholder="Jalan, Kota, Negara"
+        />
       </div>
     </div>
 
     <div class="space-y-4">
       <UiDivider label="Pay To (Freelancer)" />
       <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <UiVeeInput label="Nama Freelancer" name="freelancerName" />
-        <UiVeeInput label="Role/Profesi" name="freelancerRole" />
-        <UiVeeInput label="Email" name="freelancerEmail" />
-        <UiVeeInput label="Telepon" name="freelancerPhone" />
+        <UiVeeInput label="Nama Freelancer" name="freelancerName" placeholder="Nama lengkap Anda" />
+        <UiVeeInput label="Role/Profesi" name="freelancerRole" placeholder="UI/UX Designer" />
+        <UiVeeInput label="Email" name="freelancerEmail" placeholder="nama@contoh.com" />
+        <UiVeeInput label="Telepon" name="freelancerPhone" placeholder="08xxxxxxxxxx" />
       </div>
     </div>
 
@@ -57,30 +74,50 @@
 
       <div v-if="paymentMethod === 'bank'" class="space-y-2">
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
-          <UiVeeInput label="Nama Bank" name="paymentBankName" />
-          <UiVeeInput label="No. Rekening" name="paymentBankAccountNumber" />
-          <UiVeeInput label="Nama Pemilik" name="paymentBankAccountHolder" />
+          <UiVeeInput
+            label="Nama Bank"
+            name="paymentBankName"
+            placeholder="BCA / BNI / BRI / Mandiri"
+          />
+          <UiVeeInput
+            label="No. Rekening"
+            name="paymentBankAccountNumber"
+            placeholder="1234567890"
+          />
+          <UiVeeInput
+            label="Nama Pemilik"
+            name="paymentBankAccountHolder"
+            placeholder="Nama pada rekening"
+          />
         </div>
       </div>
 
       <div v-else-if="paymentMethod === 'ewallet'" class="space-y-2">
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
-          <UiVeeInput label="GoPay (No. HP)" name="paymentEwalletGopay" />
-          <UiVeeInput label="OVO (No. HP)" name="paymentEwalletOvo" />
-          <UiVeeInput label="Dana (No. HP)" name="paymentEwalletDana" />
+          <UiVeeInput
+            label="GoPay (No. HP)"
+            name="paymentEwalletGopay"
+            placeholder="08xxxxxxxxxx"
+          />
+          <UiVeeInput label="OVO (No. HP)" name="paymentEwalletOvo" placeholder="08xxxxxxxxxx" />
+          <UiVeeInput label="Dana (No. HP)" name="paymentEwalletDana" placeholder="08xxxxxxxxxx" />
         </div>
         <p class="text-muted-foreground text-xs">Isi salah satu nomor e-wallet.</p>
       </div>
 
       <div v-else-if="paymentMethod === 'paypal'" class="space-y-2">
         <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <UiVeeInput label="Email PayPal" name="paymentPaypalEmail" />
+          <UiVeeInput
+            label="Email PayPal"
+            name="paymentPaypalEmail"
+            placeholder="email@paypal.com"
+          />
         </div>
       </div>
 
       <div v-else-if="paymentMethod === 'wise'" class="space-y-2">
         <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <UiVeeInput label="Email Wise" name="paymentWiseEmail" />
+          <UiVeeInput label="Email Wise" name="paymentWiseEmail" placeholder="email@wise.com" />
         </div>
       </div>
     </div>
