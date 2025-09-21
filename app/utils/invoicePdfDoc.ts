@@ -154,47 +154,50 @@ export const buildInvoiceDocDefinition = (
       { text: ' ', margin: [0, 14, 0, 0] },
 
       { text: 'ITEM', style: 'sectionTitle' },
-      { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#d1d5db' }], margin: [0, 6, 0, 0] },
-      {
-        columns: [
-          { width: '*', text: 'DESCRIPTION', style: 'tableHeader' },
-          { width: 100, text: 'RATE', style: 'tableHeader' },
-          { width: 40, text: qtyHeader, style: 'tableHeader', alignment: 'center' },
-          { width: 80, text: 'AMOUNT', style: 'tableHeader', alignment: 'right' },
-        ],
-        margin: [0, 6, 0, 6],
-      },
-      { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#d1d5db' }], margin: [0, 0, 0, 0] },
-      ...(
-        items.length
-          ? items.flatMap((it: any) => {
-            const rateStr = (() => {
-              const u = String(it.unit || '').toLowerCase()
-              const compact = u === 'hours' ? 'h' : u === 'project' ? 'prj' : u === 'qty' ? 'qty' : u
-              const suffix = compact ? `/${compact}` : ''
-              return `${fmt(it.rate || 0)}${suffix}`
-            })()
-            const amount = (Number(it.rate) || 0) * (Number(it.quantity) || 0)
-            return [
-              {
-                stack: [
-                  {
-                    columns: [
-                      { width: '*', text: it.description || '—', style: 'cell' },
-                      { width: 100, text: rateStr, style: 'cell' },
-                      { width: 40, text: String(it.quantity ?? ''), style: 'cell', alignment: 'center' },
-                      { width: 80, text: fmt(amount), style: 'cell', alignment: 'right' },
-                    ],
-                  },
-                  { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#e5e7eb' }] },
+      { text: ' ', margin: [0, 6, 0, 0] },
+      ...(items.length
+        ? [
+          {
+            table: {
+              headerRows: 1,
+              widths: ['*', 100, 40, 80],
+              body: [
+                [
+                  { text: 'DESCRIPTION', style: 'tableHeader' },
+                  { text: 'RATE', style: 'tableHeader' },
+                  { text: qtyHeader, style: 'tableHeader', alignment: 'center' },
+                  { text: 'AMOUNT', style: 'tableHeader', alignment: 'right' },
                 ],
-                unbreakable: true,
-                margin: [0, 6, 0, 6],
-              },
-            ]
-          })
-          : [{ text: 'Belum ada item layanan.', color: '#6b7280', margin: [0, 10, 0, 10] }]
-      ),
+                ...items.map((it: any) => {
+                  const rateStr = (() => {
+                    const u = String(it.unit || '').toLowerCase()
+                    const compact = u === 'hours' ? 'h' : u === 'project' ? 'prj' : u === 'qty' ? 'qty' : u
+                    const suffix = compact ? `/${compact}` : ''
+                    return `${fmt(it.rate || 0)}${suffix}`
+                  })()
+                  const amount = (Number(it.rate) || 0) * (Number(it.quantity) || 0)
+                  return [
+                    { text: it.description || '—', style: 'cell' },
+                    { text: rateStr, style: 'cell' },
+                    { text: String(it.quantity ?? ''), style: 'cell', alignment: 'center' },
+                    { text: fmt(amount), style: 'cell', alignment: 'right' },
+                  ]
+                }),
+              ],
+            },
+            layout: {
+              fillColor: (rowIndex: number) => (rowIndex === 0 ? null : rowIndex % 2 === 0 ? '#fafafa' : null),
+              hLineWidth: (i: number, node: any) => (i === 0 || i === 1 ? 1 : i === node.table.body.length ? 1 : 0.5),
+              vLineWidth: () => 0,
+              hLineColor: () => '#e5e7eb',
+              paddingLeft: () => 6,
+              paddingRight: () => 6,
+              paddingTop: () => 6,
+              paddingBottom: () => 6,
+            },
+          },
+        ]
+        : [{ text: 'Belum ada item layanan.', color: '#6b7280', margin: [0, 10, 0, 10] }]),
 
       {
         columns: [

@@ -44,9 +44,18 @@
       });
     });
   };
+  // Debounce regeneration to avoid flicker during rapid edits
+  let regenTimer: ReturnType<typeof setTimeout> | null = null;
+  const scheduleRegen = () => {
+    if (regenTimer) clearTimeout(regenTimer);
+    regenTimer = setTimeout(() => {
+      regenTimer = null;
+      regenerate();
+    }, 250);
+  };
 
   onMounted(regenerate);
-  watch([values, lineItems, subtotal, total], regenerate, { deep: true });
+  watch([values, lineItems, subtotal, total], scheduleRegen, { deep: true });
   // No revoke needed; blob is released when component GC's
 </script>
 

@@ -10,11 +10,7 @@ export type RenderOptions = {
   fitWidth?: number // if provided, scale will be computed to fit this width
 }
 
-export async function renderPdfInto(container: HTMLElement, data: Uint8Array | ArrayBuffer, opts: RenderOptions = {}) {
-  // Clear container
-  while (container.firstChild) container.removeChild(container.firstChild)
-  container.style.background = 'transparent'
-
+export async function renderPdfTo(element: HTMLElement, data: Uint8Array | ArrayBuffer, opts: RenderOptions = {}) {
   const bytes = data instanceof Uint8Array ? data : new Uint8Array(data)
   const loadingTask = pdfjsLib.getDocument({ data: bytes })
   const pdf = await loadingTask.promise
@@ -42,8 +38,15 @@ export async function renderPdfInto(container: HTMLElement, data: Uint8Array | A
     // @ts-ignore pdf.js render supports background param
     await page.render({ canvasContext: ctx, viewport, background: 'white' }).promise
 
-    container.appendChild(canvas)
+    element.appendChild(canvas)
   }
 
   try { pdf.cleanup() } catch { /* noop */ }
+}
+
+export async function renderPdfInto(container: HTMLElement, data: Uint8Array | ArrayBuffer, opts: RenderOptions = {}) {
+  // Clear container, then render into it
+  while (container.firstChild) container.removeChild(container.firstChild)
+  container.style.background = 'transparent'
+  await renderPdfTo(container, data, opts)
 }
