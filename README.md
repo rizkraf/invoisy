@@ -1,12 +1,12 @@
 # Invoisy — Pembuat Faktur Client‑side (Nuxt)
 
-Invoisy adalah aplikasi web sederhana untuk membuat faktur (invoice) secara cepat di peramban. PDF dihasilkan dengan teks dapat dipilih (selectable) menggunakan pdfMake, dan pratinjau ditampilkan tanpa toolbar menggunakan pdf.js untuk pengalaman yang bersih dan konsisten.
+Invoisy adalah aplikasi web sederhana untuk membuat faktur (invoice) secara cepat di browser. PDF dihasilkan dengan teks dapat dipilih (selectable) menggunakan pdfMake, dan preview ditampilkan tanpa toolbar menggunakan pdf.js untuk pengalaman yang bersih dan konsisten.
 
 ## Fitur
 
-- Pembuatan faktur langsung di peramban (client‑side), tanpa pop‑up print
+- Pembuatan faktur langsung di browser (client‑side), tanpa pop‑up print
 - PDF teks dapat dipilih (pdfMake)
-- Pratinjau PDF tanpa toolbar dengan latar putih (pdf.js)
+- Preview PDF tanpa toolbar dengan latar putih (pdf.js)
 - Templat item dalam bentuk tabel dengan subtotal, diskon, dan total
 - Form validasi dengan Vee‑Validate + Zod
 - Tampilan modern dengan Tailwind CSS dan komponen UI kustom
@@ -80,7 +80,7 @@ bun install
 
 ## Menjalankan Secara Lokal
 
-Jalankan server pengembangan di `http://localhost:3000`:
+Jalankan server dev di `http://localhost:3000`:
 
 ```bash
 # npm
@@ -96,9 +96,9 @@ yarn dev
 bun run dev
 ```
 
-## Build Produksi
+## Build Production
 
-Membangun aplikasi untuk produksi:
+Build aplikasi untuk production:
 
 ```bash
 # npm
@@ -114,7 +114,7 @@ yarn build
 bun run build
 ```
 
-Pratinjau build produksi secara lokal:
+Preview build production di lokal:
 
 ```bash
 # npm
@@ -135,7 +135,7 @@ bun run preview
 1. Buka halaman Generate (`/generate`).
 2. Isi data dasar, item layanan/produk, dan opsi tambahan (diskon, catatan).
 3. Lihat pratinjau PDF langsung di panel kanan.
-4. Klik Unduh untuk mengunduh PDF (tanpa membuka dialog print).
+4. Klik Download untuk mengunduh PDF (tanpa membuka dialog print).
 
 ## Kustomisasi PDF
 
