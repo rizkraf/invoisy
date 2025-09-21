@@ -119,14 +119,22 @@
 
   const { download } = useInvoicePdf();
   const downloadPdf = async () => {
-    await download({
-      values,
-      lineItems: lineItems.value,
-      subtotal: subtotal.value,
-      total: total.value,
-      fileName: `${values.invoiceNumber || "invoice"}.pdf`,
-    } as any);
-  };
+    try {
+      await download({
+        values,
+        lineItems: lineItems.value,
+        subtotal: subtotal.value,
+        total: total.value,
+        fileName: `${values.invoiceNumber || "invoice"}.pdf`,
+      } as any);
 
-  console.log({ values });
+      useSonner.success("Invoice berhasil didownload", {
+        description: "Terima kasih telah menggunakan aplikasi ini!",
+        richColors: true,
+        duration: 5000,
+      });
+    } catch (err) {
+      console.error("Failed to download PDF:", err);
+    }
+  };
 </script>

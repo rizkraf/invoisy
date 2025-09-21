@@ -34,7 +34,6 @@ export interface InvoiceValues {
   paymentWiseEmail?: string
   paymentTerms?: string
   notes?: string
-  thankYou?: string
 }
 
 export const buildInvoiceDocDefinition = (
@@ -207,12 +206,11 @@ export const buildInvoiceDocDefinition = (
         margin: [0, 12, 0, 0],
       },
 
-      ...(v.paymentTerms || v.notes || v.thankYou
+      ...(v.paymentTerms || v.notes
         ? [
           { text: ' ', margin: [0, 12, 0, 0] },
           { text: v.paymentTerms || '', margin: [0, 2, 0, 0] },
           { text: v.notes || '', margin: [0, 2, 0, 0] },
-          { text: v.thankYou || '', margin: [0, 2, 0, 0] },
         ]
         : []),
     ],
