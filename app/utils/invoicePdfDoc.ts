@@ -56,7 +56,7 @@ export const buildInvoiceDocDefinition = (
   }
   const qtyHeader = (() => {
     const hasHours = (items || []).some((i: any) => String(i.unit || '').toLowerCase() === 'hours')
-    return hasHours ? 'HOURS' : 'QTY'
+    return hasHours ? 'JAM' : 'JML'
   })()
 
   const paymentDetailBlock = (() => {
@@ -65,9 +65,9 @@ export const buildInvoiceDocDefinition = (
         return [
           { text: 'Bank', style: 'muted' },
           { text: v.paymentBankName || '—' },
-          { text: 'Account Name', style: 'muted', margin: [0, 4, 0, 0] },
+          { text: 'Nama Pemilik Rekening', style: 'muted', margin: [0, 4, 0, 0] },
           { text: v.paymentBankAccountHolder || '—' },
-          { text: 'Account Number', style: 'muted', margin: [0, 4, 0, 0] },
+          { text: 'Nomor Rekening', style: 'muted', margin: [0, 4, 0, 0] },
           { text: v.paymentBankAccountNumber || '—' },
         ]
       case 'ewallet':
@@ -89,9 +89,9 @@ export const buildInvoiceDocDefinition = (
   })()
 
   const totalsStack = [
-    { columns: [{ text: 'Sub-Total', style: 'muted' }, { text: fmt(subtotal || 0), alignment: 'right', style: 'cell' }] },
+    { columns: [{ text: 'Sub-total', style: 'muted' }, { text: fmt(subtotal || 0), alignment: 'right', style: 'cell' }] },
     ...(v.discount
-      ? [{ columns: [{ text: 'Discount', style: 'muted' }, { text: fmt(v.discount || 0), alignment: 'right', style: 'cell' }] }]
+      ? [{ columns: [{ text: 'Diskon', style: 'muted' }, { text: fmt(v.discount || 0), alignment: 'right', style: 'cell' }] }]
       : []),
     { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 260, y2: 0, lineWidth: 0.5, lineColor: '#cccccc' }], margin: [0, 6, 0, 6] },
     { columns: [{ text: 'TOTAL', style: 'totalLabel' }, { text: fmt(total || 0), alignment: 'right', style: 'totalValue' }] },
@@ -117,10 +117,10 @@ export const buildInvoiceDocDefinition = (
         columns: [
           [{ text: v.brandName || '', style: 'headerBrand' }],
           [
-            { text: 'INVOICE', style: 'invoiceTitle' },
+            { text: 'FAKTUR', style: 'invoiceTitle' },
             { text: v.invoiceNumber || '', style: 'invoiceMeta', margin: [0, 2, 0, 0] },
-            { text: `Invoice Date: ${fmtDate(v.invoiceDate)}`, style: 'invoiceMeta', margin: [0, 6, 0, 0] },
-            { text: `Due Date: ${fmtDate(v.invoiceDueDate)}`, style: 'invoiceMeta', margin: [0, 2, 0, 0] },
+            { text: `Tanggal Faktur: ${fmtDate(v.invoiceDate)}`.trim(), style: 'invoiceMeta', margin: [0, 6, 0, 0] },
+            { text: `Jatuh Tempo: ${fmtDate(v.invoiceDueDate)}`.trim(), style: 'invoiceMeta', margin: [0, 2, 0, 0] },
           ],
         ],
         columnGap: 10,
@@ -131,7 +131,7 @@ export const buildInvoiceDocDefinition = (
       {
         columns: [
           [
-            { text: 'BILLED TO', style: 'sectionTitle' },
+            { text: 'DITAGIHKAN KE', style: 'sectionTitle' },
             { text: v.clientName || '', margin: [0, 6, 0, 0] },
             { text: v.clientCompany || '', style: v.clientCompany ? undefined : 'muted' },
             { text: v.clientAddress || '', style: v.clientAddress ? undefined : 'muted' },
@@ -139,7 +139,7 @@ export const buildInvoiceDocDefinition = (
             { text: v.clientPhone || '', style: v.clientPhone ? undefined : 'muted' },
           ],
           [
-            { text: 'PAY TO', style: 'sectionTitle' },
+            { text: 'DIBAYARKAN KEPADA', style: 'sectionTitle' },
             { text: v.freelancerName || '', margin: [0, 6, 0, 0] },
             { text: v.freelancerRole || '', style: v.freelancerRole ? undefined : 'muted' },
             { text: v.freelancerEmail || '', style: v.freelancerEmail ? undefined : 'muted' },
@@ -162,15 +162,15 @@ export const buildInvoiceDocDefinition = (
               widths: ['*', 100, 40, 80],
               body: [
                 [
-                  { text: 'DESCRIPTION', style: 'tableHeader' },
-                  { text: 'RATE', style: 'tableHeader' },
+                  { text: 'DESKRIPSI', style: 'tableHeader' },
+                  { text: 'TARIF', style: 'tableHeader' },
                   { text: qtyHeader, style: 'tableHeader', alignment: 'center' },
-                  { text: 'AMOUNT', style: 'tableHeader', alignment: 'right' },
+                  { text: 'NILAI', style: 'tableHeader', alignment: 'right' },
                 ],
                 ...items.map((it: any) => {
                   const rateStr = (() => {
                     const u = String(it.unit || '').toLowerCase()
-                    const compact = u === 'hours' ? 'h' : u === 'project' ? 'prj' : u === 'qty' ? 'qty' : u
+                    const compact = u === 'hours' ? 'jam' : u === 'project' ? 'proyek' : u === 'qty' ? 'unit' : u
                     const suffix = compact ? `/${compact}` : ''
                     return `${fmt(it.rate || 0)}${suffix}`
                   })()
