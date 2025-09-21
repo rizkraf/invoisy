@@ -41,7 +41,6 @@ export const invoiceSchema = z.object({
   discount: z.coerce.number().min(0, "Diskon tidak boleh negatif").optional(),
   paymentTerms: z.string().optional(),
   notes: z.string().optional(),
-  thankYou: z.string().optional(),
 }).superRefine((data, ctx) => {
   if (!data.freelancerEmail && !data.freelancerPhone) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["freelancerEmail"], message: "Email atau telepon freelancer wajib diisi" });
@@ -152,7 +151,6 @@ export const useInvoiceForm = () => {
         discount: 0,
         paymentTerms: "",
         notes: "",
-        thankYou: "",
       },
     });
 

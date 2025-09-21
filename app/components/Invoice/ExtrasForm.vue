@@ -21,7 +21,6 @@
           placeholder="Harap dibayar dalam 7 hari"
         />
         <UiVeeInput name="notes" label="Catatan" placeholder="Harga termasuk 2x revisi" />
-        <UiVeeInput name="thankYou" label="Ucapan Terima Kasih" placeholder="Terima kasih" />
       </div>
     </div>
   </div>
