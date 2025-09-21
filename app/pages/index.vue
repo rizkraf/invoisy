@@ -35,3 +35,21 @@
     </div>
   </UiContainer>
 </template>
+
+<script setup lang="ts">
+  useHead({
+    title: "Invoisy - Buat Invoice Profesional Tanpa Ribet Login",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Invoisy membantu freelancer dan profesional membuat invoice profesional dalam hitungan menit. Tidak perlu akun, cukup isi detailnya dan dapatkan invoice siap kirim.",
+      },
+      {
+        name: "keywords",
+        content:
+          "invoice, buat invoice, invoice profesional, invoice freelancer, invoice online, template invoice, generator invoice, tanpa login, gratis",
+      },
+    ],
+  });
+</script>

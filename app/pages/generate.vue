@@ -100,6 +100,22 @@
 <script lang="ts" setup>
   import { currencies } from "~/utils/currencies";
 
+  useHead({
+    title: "Buat Invoice Profesional - Invoisy",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Buat invoice profesional dalam hitungan menit. Isi detailnya, tambahkan item layanan, dan download PDF siap kirim. Gratis, tanpa perlu login.",
+      },
+      {
+        name: "keywords",
+        content:
+          "buat invoice, invoice profesional, generator invoice, template invoice, download invoice, tanpa login, gratis",
+      },
+    ],
+  });
+
   const InvoiceExtrasForm = resolveComponent("InvoiceExtrasForm");
 
   const {
