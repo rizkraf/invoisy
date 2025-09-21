@@ -100,19 +100,34 @@
 <script lang="ts" setup>
   import { currencies } from "~/utils/currencies";
 
+  const route = useRoute();
+  const { origin } = useRequestURL();
+  const title = "Buat Invoice Profesional - Invoisy";
+  const description =
+    "Buat invoice profesional dalam hitungan menit. Isi detailnya, tambahkan item layanan, dan download PDF siap kirim. Gratis, tanpa perlu login.";
+  const imageUrl = `${origin}/website-preview.png`;
+  const pageUrl = `${origin}${route.fullPath}`;
+
   useHead({
-    title: "Buat Invoice Profesional - Invoisy",
+    title,
     meta: [
-      {
-        name: "description",
-        content:
-          "Buat invoice profesional dalam hitungan menit. Isi detailnya, tambahkan item layanan, dan download PDF siap kirim. Gratis, tanpa perlu login.",
-      },
+      { name: "description", content: description },
       {
         name: "keywords",
         content:
           "buat invoice, invoice profesional, generator invoice, template invoice, download invoice, tanpa login, gratis",
       },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: imageUrl },
+      { property: "og:url", content: pageUrl },
+      { property: "og:site_name", content: "Invoisy" },
+      { property: "og:locale", content: "id_ID" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: imageUrl },
     ],
   });
 

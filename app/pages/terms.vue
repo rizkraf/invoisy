@@ -79,11 +79,17 @@
         kebutuhan dan yurisdiksi Anda.
       </p>
     </div>
-    mcla
   </UiContainer>
 </template>
 
 <script setup lang="ts">
+  const route = useRoute();
+  const { origin } = useRequestURL();
+  const ogTitle = "Syarat & Ketentuan - Invoisy";
+  const ogDescription =
+    "Syarat & Ketentuan penggunaan Invoisy—aplikasi pembuatan faktur yang berjalan di sisi klien.";
+  const ogImage = `${origin}/website-preview.png`;
+  const pageUrl = `${origin}${route.fullPath}`;
   const effectiveDate = new Date().toLocaleDateString("id-ID", {
     year: "numeric",
     month: "long",
@@ -92,13 +98,20 @@
   const contactEmail = "support@invoisy.app"; // ganti bila diperlukan
 
   useHead({
-    title: "Syarat & Ketentuan • Invoisy",
+    title: ogTitle,
     meta: [
-      {
-        name: "description",
-        content:
-          "Syarat & Ketentuan penggunaan Invoisy—aplikasi pembuatan faktur yang berjalan di sisi klien.",
-      },
+      { name: "description", content: ogDescription },
+      { property: "og:title", content: ogTitle },
+      { property: "og:description", content: ogDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: ogImage },
+      { property: "og:url", content: pageUrl },
+      { property: "og:site_name", content: "Invoisy" },
+      { property: "og:locale", content: "id_ID" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: ogTitle },
+      { name: "twitter:description", content: ogDescription },
+      { name: "twitter:image", content: ogImage },
     ],
   });
 </script>

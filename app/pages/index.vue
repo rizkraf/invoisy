@@ -37,19 +37,37 @@
 </template>
 
 <script setup lang="ts">
+  const route = useRoute();
+  const { origin } = useRequestURL();
+
+  const title = "Invoisy - Buat Invoice Profesional Tanpa Ribet Login";
+  const description =
+    "Invoisy membantu freelancer dan profesional membuat invoice profesional dalam hitungan menit. Tidak perlu akun, cukup isi detailnya dan dapatkan invoice siap kirim.";
+  const imageUrl = `${origin}/website-preview.png`;
+  const pageUrl = `${origin}${route.fullPath}`;
+
   useHead({
-    title: "Invoisy - Buat Invoice Profesional Tanpa Ribet Login",
+    title,
     meta: [
-      {
-        name: "description",
-        content:
-          "Invoisy membantu freelancer dan profesional membuat invoice profesional dalam hitungan menit. Tidak perlu akun, cukup isi detailnya dan dapatkan invoice siap kirim.",
-      },
+      { name: "description", content: description },
       {
         name: "keywords",
         content:
           "invoice, buat invoice, invoice profesional, invoice freelancer, invoice online, template invoice, generator invoice, tanpa login, gratis",
       },
+      // Open Graph
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: imageUrl },
+      { property: "og:url", content: pageUrl },
+      { property: "og:site_name", content: "Invoisy" },
+      { property: "og:locale", content: "id_ID" },
+      // Twitter Card
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: imageUrl },
     ],
   });
 </script>

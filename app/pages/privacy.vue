@@ -92,6 +92,13 @@
 </template>
 
 <script setup lang="ts">
+  const route = useRoute();
+  const { origin } = useRequestURL();
+  const ogTitle = "Kebijakan Privasi - Invoisy";
+  const ogDescription =
+    "Kebijakan Privasi Invoisy: cara kami memproses dan melindungi data Anda saat membuat faktur secara lokal di perangkat.";
+  const ogImage = `${origin}/website-preview.png`;
+  const pageUrl = `${origin}${route.fullPath}`;
   const effectiveDate = new Date().toLocaleDateString("id-ID", {
     year: "numeric",
     month: "long",
@@ -100,13 +107,20 @@
   const contactEmail = "support@invoisy.app"; // ganti bila diperlukan
 
   useHead({
-    title: "Kebijakan Privasi • Invoisy",
+    title: ogTitle,
     meta: [
-      {
-        name: "description",
-        content:
-          "Kebijakan Privasi Invoisy: cara kami memproses dan melindungi data Anda saat membuat faktur secara lokal di perangkat.",
-      },
+      { name: "description", content: ogDescription },
+      { property: "og:title", content: ogTitle },
+      { property: "og:description", content: ogDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: ogImage },
+      { property: "og:url", content: pageUrl },
+      { property: "og:site_name", content: "Invoisy" },
+      { property: "og:locale", content: "id_ID" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: ogTitle },
+      { name: "twitter:description", content: ogDescription },
+      { name: "twitter:image", content: ogImage },
     ],
   });
 </script>
