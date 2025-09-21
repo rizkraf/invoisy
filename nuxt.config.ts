@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@vee-validate/nuxt",
     "nuxt-pdfmake",
-    "vue-sonner/nuxt"
+    "vue-sonner/nuxt",
+    "@nuxt/image",
   ],
 
   imports: {

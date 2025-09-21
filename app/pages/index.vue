@@ -21,5 +21,17 @@
         <Icon name="lucide:plus-circle" />
       </UiButton>
     </div>
+
+    <div
+      class="mx-auto mt-10 w-full rounded-md shadow lg:mt-10 lg:w-[900px] lg:rounded-lg lg:shadow-lg"
+    >
+      <NuxtImg
+        src="/invoice-form-mockup.png"
+        alt="Screenshot of the invoice form"
+        sizes="100vw sm:50vw md:900px"
+        class="block h-auto w-full"
+        priority
+      />
+    </div>
   </UiContainer>
 </template>
