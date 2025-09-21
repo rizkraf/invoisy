@@ -5,11 +5,11 @@
     <ClientOnly>
       <div class="h-[1123px] w-full">
         <InvoicePdfCanvasViewer v-if="pdfBlob" :blob="pdfBlob" />
-        <div v-else class="p-8 text-sm text-zinc-500">Membuat pratinjau PDF…</div>
+        <div v-else class="p-8 text-sm text-zinc-500">Generating PDF preview…</div>
       </div>
     </ClientOnly>
     <noscript>
-      <div class="p-8 text-sm text-zinc-500">Aktifkan JavaScript untuk melihat pratinjau PDF.</div>
+      <div class="p-8 text-sm text-zinc-500">Enable JavaScript to see the PDF preview.</div>
     </noscript>
   </div>
 </template>
