@@ -23,7 +23,7 @@ export interface InvoiceValues {
   invoiceDueDate?: any
   currency?: string
   discount?: number
-  paymentMethod?: "bank" | "ewallet" | "paypal" | "wise"
+  paymentMethod?: "bank" | "ewallet" | "paypal" | "wise" | "cash"
   paymentBankName?: string
   paymentBankAccountNumber?: string
   paymentBankAccountHolder?: string
@@ -32,6 +32,7 @@ export interface InvoiceValues {
   paymentEwalletDana?: string
   paymentPaypalEmail?: string
   paymentWiseEmail?: string
+  paymentCashNote?: string
   paymentTerms?: string
   notes?: string
 }
@@ -83,6 +84,11 @@ export const buildInvoiceDocDefinition = (
         return [{ text: 'PayPal', style: 'muted' }, { text: v.paymentPaypalEmail || '—' }]
       case 'wise':
         return [{ text: 'Wise', style: 'muted' }, { text: v.paymentWiseEmail || '—' }]
+      case 'cash':
+        return [
+          { text: 'Cash Payment', style: 'muted' },
+          { text: v.paymentCashNote || 'Bayar tunai saat penyerahan.' },
+        ]
       default:
         return []
     }

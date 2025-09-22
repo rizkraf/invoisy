@@ -19,9 +19,11 @@ export const invoiceSchema = z.object({
   invoiceDate: z.any().refine(isDateValue, "Tanggal invoice tidak valid"),
   invoiceDueDate: z.any().refine(isDateValue, "Tanggal jatuh tempo tidak valid"),
   currency: z.string().min(1, "Mata uang harus dipilih"),
-  paymentMethod: z.enum(["bank", "ewallet", "paypal", "wise"], {
+  paymentMethod: z.enum(["bank", "ewallet", "paypal", "wise", "cash"], {
     required_error: "Pilih metode pembayaran",
   }),
+  // optional note/placeholder for cash specifics (e.g., lokasi, waktu penyerahan)
+  paymentCashNote: z.string().optional(),
   paymentBankName: z.string().optional(),
   paymentBankAccountNumber: z.string().optional(),
   paymentBankAccountHolder: z.string().optional(),
@@ -93,6 +95,9 @@ export const invoiceSchema = z.object({
         });
       }
       break;
+    case "cash":
+      // No required fields for cash; optional note allowed
+      break;
   }
 
   if (isDateValue(data.invoiceDate) && isDateValue(data.invoiceDueDate)) {
@@ -147,6 +152,7 @@ export const useInvoiceForm = () => {
         paymentEwalletDana: "",
         paymentPaypalEmail: "",
         paymentWiseEmail: "",
+        paymentCashNote: "",
         serviceItems: [],
         discount: 0,
         paymentTerms: "",
@@ -220,6 +226,10 @@ export const useInvoiceForm = () => {
             setFieldError("paymentWiseEmail" as any, "Email Wise wajib diisi");
             valid = false;
           }
+          break;
+        }
+        case "cash": {
+          // No additional validation required for cash
           break;
         }
       }

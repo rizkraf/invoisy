@@ -68,6 +68,7 @@
           <option value="ewallet">E-Wallet</option>
           <option value="paypal">PayPal</option>
           <option value="wise">Wise</option>
+          <option value="cash">Cash</option>
         </UiVeeSelect>
         <div class="md:col-span-2"></div>
       </div>
@@ -120,6 +121,20 @@
           <UiVeeInput label="Email Wise" name="paymentWiseEmail" placeholder="email@wise.com" />
         </div>
       </div>
+
+      <div v-else-if="paymentMethod === 'cash'" class="space-y-2">
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <UiVeeInput
+            class="md:col-span-2"
+            label="Catatan Pembayaran Tunai (opsional)"
+            name="paymentCashNote"
+            placeholder="Contoh: Bayar tunai saat penyerahan, lokasi: kantor klien"
+          />
+        </div>
+        <p class="text-muted-foreground text-xs">
+          Tidak ada detail tambahan yang diperlukan untuk pembayaran tunai.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -128,5 +143,7 @@
   type LocalCurrencyOption = { label: string; value: string };
 
   const props = defineProps<{ currencies: LocalCurrencyOption[] }>();
-  const paymentMethod = useFieldValue<"bank" | "ewallet" | "paypal" | "wise">("paymentMethod");
+  const paymentMethod = useFieldValue<"bank" | "ewallet" | "paypal" | "wise" | "cash">(
+    "paymentMethod"
+  );
 </script>

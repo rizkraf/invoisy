@@ -5,7 +5,14 @@
   >
     <ul class="flex flex-wrap gap-5">
       <li v-for="k in links" :key="k.name">
-        <NuxtLink class="hover:text-primary" :to="k.href">{{ k.name }}</NuxtLink>
+        <NuxtLink
+          class="hover:text-primary"
+          :to="k.href"
+          :external="k.external || undefined"
+          :target="k.external ? '_blank' : undefined"
+          :rel="k.external ? 'noopener noreferrer' : undefined"
+          >{{ k.name }}</NuxtLink
+        >
       </li>
     </ul>
 
@@ -19,5 +26,6 @@
     { name: "Beranda", href: "/" },
     { name: "Privasi", href: "/privacy" },
     { name: "Ketentuan", href: "/terms" },
+    { name: "Kode Sumber", href: "https://github.com/rizkraf/invoisy", external: true },
   ];
 </script>
