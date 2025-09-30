@@ -52,6 +52,10 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/tailwind.css"],
 
+  image: {
+    provider: "netlify"
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
