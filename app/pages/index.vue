@@ -39,12 +39,14 @@
 <script setup lang="ts">
   const route = useRoute();
   const { origin } = useRequestURL();
+  const { public: runtime } = useRuntimeConfig() as { public: { siteUrl?: string } };
 
   const title = "Invoisy - Buat Invoice Profesional Tanpa Ribet Login";
   const description =
     "Invoisy membantu freelancer dan profesional membuat invoice profesional dalam hitungan menit. Tidak perlu akun, cukup isi detailnya dan dapatkan invoice siap kirim.";
-  const imageUrl = `${origin}/website-preview.png`;
-  const pageUrl = `${origin}${route.fullPath}`;
+  const baseUrl = (runtime.siteUrl || origin).replace(/\/+$/, "");
+  const imageUrl = `${baseUrl}/website-preview.png`;
+  const pageUrl = `${baseUrl}${route.fullPath}`;
 
   useHead({
     title,
